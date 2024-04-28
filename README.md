@@ -38,3 +38,8 @@ Any physical or internet theft does not allow the passphrase to be restored!
 *How can I use this app in isolation (cold storage):*
  - Put the application on a flash drive, ready to boot, and set it as auto-start in the terminal. Before starting, disconnect your PC from the internet (disconnect the ethernet cable), insert the flash drive, and boot by selecting the flash drive as the boot drive (look for your PC's instructions on which button to press at startup to the boot menu appears).
    At this point the application will be launched, isolated from the internet, in a secure environment.
+
+*Is it mandatory to use the app by booting from the flash drive with a PC disconnected from the internet?*
+ - Technically, if you're using the original app, no, but you should download it from GitHub in source format and compile it yourself.
+   But since it is always best to never trust anything or anyone, your flash drive may not have the original app, so it is highly recommended to boot from the flash drive on a computer disconnected from the internet, physically isolated from the network (unplug the ethernet cable before booting), and uses a boot system based on open source Linux distros and popular sources to make the pen drive bootable.
+   You must always consider that someone could replace your pen drive or tamper with the application, so it is important that all save and restore operations take place physically disconnected from the network and the internet, the concept of trustless must also be extended towards the trust of use of the software and the PC (never trust anything or anyone).
