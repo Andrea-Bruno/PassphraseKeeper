@@ -4,10 +4,11 @@ using PassphraseKeeper;
 using System;
 using System.Diagnostics;
 using System.Drawing;
+using System.Net.NetworkInformation;
 using System.Security.Cryptography;
 using System.Text;
 using Terminal.Gui;
-using static EncryptionAlgorithm.Perform;
+using static AntiBruteForce.Perform;
 
 namespace PassphraseKeeper
 {
@@ -17,6 +18,34 @@ namespace PassphraseKeeper
         // static public int MemoryID = 0;
         static public bool NoRepeat;
         public Password()
+        {
+            while (InternetIsAvailable())
+            {
+                var n = MessageBox.Query(50, 7, "Security alert?", "Disconnect the device from the internet to continue!", "Ok", "Retry");
+            }
+            Start();
+        }
+
+        private static bool InternetIsAvailable()
+        {
+            if (Debugger.IsAttached)
+                return false;
+            if (NetworkInterface.GetIsNetworkAvailable())
+            {
+                try
+                {
+                    using var ping = new Ping();
+                    return ping.Send("duckduckgo.com").Status == IPStatus.Success;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }                
+            }
+            return false;
+        }
+
+        private void Start()
         {
             // Application.QuitKey = Key.Esc; // [esc] to quit
 
@@ -57,7 +86,7 @@ namespace PassphraseKeeper
                     var seed = x[0].Text.ToString();
                     using HashAlgorithm algorithm = SHA256.Create();
                     var startHash = algorithm.ComputeHash(Encoding.UTF8.GetBytes(seed)); // Generate a 32 bit seed
-                    Hash = ParallelHash(startHash, 50000000, default, RefreshProgressBarr, entropy: entropy);
+                    Hash = ParallelHash(startHash, 50000000, 50, default, RefreshProgressBarr, entropy: entropy);
                     if (Progress != null)
                         Progress.Visible = false;
                     OnHashCompleted?.Invoke(Hash);
