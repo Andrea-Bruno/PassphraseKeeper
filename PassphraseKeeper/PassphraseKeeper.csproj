@@ -8,12 +8,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="EncryptionAlgorithm" Version="1.24.4.28" />
     <PackageReference Include="Terminal.Gui" Version="1.14.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\AntiBruteForce\AntiBruteForce\AntiBruteForce.csproj" />
+    <ProjectReference Include="..\..\EncryptionAlgorithm\Encryption Algorithm\EncryptionAlgorithm.csproj" />
   </ItemGroup>
 
   <ItemGroup>

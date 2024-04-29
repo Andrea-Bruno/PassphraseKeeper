@@ -1,9 +1,6 @@
 ﻿
 // Defines a top-level window with border and title
-using PassphraseKeeper;
-using System;
 using System.Diagnostics;
-using System.Drawing;
 using System.Net.NetworkInformation;
 using System.Security.Cryptography;
 using System.Text;
