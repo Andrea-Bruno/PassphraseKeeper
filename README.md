@@ -8,6 +8,8 @@
 - Security is in the algorithms and not in the device (inviolable)
 - Cold storage
 
+![Passphrase keeper](Screenshot.png?raw=true "Screenshot")
+
 ## Are Trezor and Ledger safe?
 
 According to the most modern security concepts, the total security of a device is reduced to the largest flaw; in the case of the most well-known hardware wallets, it is not true, as advertised, that the private key never leaves the device, but leaves it at the moment in which it is written on a piece of paper, this makes events such as:
