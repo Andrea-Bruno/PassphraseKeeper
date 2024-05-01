@@ -83,7 +83,7 @@ namespace PassphraseKeeper
                     var seed = x[0].Text.ToString();
                     using HashAlgorithm algorithm = SHA256.Create();
                     var startHash = algorithm.ComputeHash(Encoding.UTF8.GetBytes(seed)); // Generate a 32 bit seed
-                    Hash = ParallelHash(startHash, 50000000, 50, default, RefreshProgressBarr, entropy: salt);
+                    Hash = ParallelHash(startHash, 50000000, 50, default, RefreshProgressBarr, salt: salt);
                     if (Progress != null)
                         Progress.Visible = false;
                     OnHashCompleted?.Invoke(Hash);
