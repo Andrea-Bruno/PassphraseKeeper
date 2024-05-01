@@ -1,8 +1,9 @@
 # Passphrase Keeper
-
 ## Trustless application for saving non-custodial wallet passphrases such as Trzeor, Ledger and others
-*Characteristics:*
 
+This software, which can be entirely inspected by academics and cryptography experts, allows you to save passphrases for hardware wallets, without having to type them from the keyboard, using a terminal software that can be cold run (disconnected from the internet) by starting it from a live Linux distro, and has been engineered so that, if the save files were to be stolen, it will not be possible to decrypt them with brute force attacks or otherwise: **The security of this software in maintaining the passphrase is greater than that adopted by Ledger or Trezor in keeping it secret from their inside the private key.**
+
+*Characteristics:*
 - Resistant to brute force attacks
 - Anti keylogger
 - Security is in the algorithms and not in the device (inviolable)
