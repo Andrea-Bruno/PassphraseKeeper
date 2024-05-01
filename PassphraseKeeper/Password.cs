@@ -70,20 +70,20 @@ namespace PassphraseKeeper
 
                 Task.Run(() =>
                 {
-                    byte[]? entropy;
-                    if (File.Exists(nameof(entropy)))
-                        entropy = File.ReadAllBytes(nameof(entropy));
+                    byte[]? salt;
+                    if (File.Exists(nameof(salt)))
+                        salt = File.ReadAllBytes(nameof(salt));
                     else
                     {
                         var rnd = new Random();
-                        entropy = new Byte[32];
-                        rnd.NextBytes(entropy);
-                        File.WriteAllBytes(nameof(entropy), entropy);
+                        salt = new Byte[32];
+                        rnd.NextBytes(salt);
+                        File.WriteAllBytes(nameof(salt), salt);
                     }
                     var seed = x[0].Text.ToString();
                     using HashAlgorithm algorithm = SHA256.Create();
                     var startHash = algorithm.ComputeHash(Encoding.UTF8.GetBytes(seed)); // Generate a 32 bit seed
-                    Hash = ParallelHash(startHash, 50000000, 50, default, RefreshProgressBarr, entropy: entropy);
+                    Hash = ParallelHash(startHash, 50000000, 50, default, RefreshProgressBarr, entropy: salt);
                     if (Progress != null)
                         Progress.Visible = false;
                     OnHashCompleted?.Invoke(Hash);
