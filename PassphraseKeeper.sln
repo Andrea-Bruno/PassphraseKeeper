@@ -7,6 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PassphraseKeeper", "Passphr
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Elementi di soluzione", "Elementi di soluzione", "{C55D334A-4226-46DC-8A1F-D981A9DDD16B}"
 	ProjectSection(SolutionItems) = preProject
+		FLASH-DRIVE.md = FLASH-DRIVE.md
 		LICENSE.md = LICENSE.md
 		README.md = README.md
 	EndProjectSection

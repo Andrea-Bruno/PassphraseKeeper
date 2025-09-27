@@ -1,6 +1,10 @@
 # Passphrase Keeper
 ## Trustless application for saving non-custodial wallet passphrases such as Trzeor, Ledger and others
 
+### Operating Principle of Passphrase Keeper
+Passphrase Keeper operates on a cold, air-gapped system to ensure maximum security. The process begins by creating a bootable USB drive. A minimalist Debian Server Linux distribution is installed onto the drive, and a dedicated installer (install.sh) configures the application to auto-start in a standalone mode. To use the system, the host PC is physically disconnected from the internet and configured to boot from the USB drive. This procedure launches the application in a secure, isolated environment, completely disconnected from any network.
+The core functionality allows users to store multiple passphrases in secure memory cells, accessed using a seed that acts as a master password. A fundamental security feature is the input method: the system does not use the physical keyboard for traditional input. Instead, the user navigates an on-screen keyboard using cursor keys. This method effectively defeats hardware and software keyloggers, as the actual seed characters are selected via pointer movement and not by pressing alphanumeric keys, leaving no trace for a keylogger to capture.
+The entered seed is not directly used to encrypt the data. Instead, it undergoes a sophisticated key derivation process to generate the actual encryption key. This system's strength relies on the immense computational effort required to derive the final key, making brute-force attacks infeasible, even with quantum computers. An additional layer of intrinsic security is provided by the absence of a checksum or CRC. A potential brute-force attack would have no way of identifying a successful decryption attempt among countless failures, as the system offers no feedback.
 This software, which can be entirely inspected by academics and cryptography experts, allows you to save passphrases for hardware wallets, without having to type them from the keyboard, using a terminal software that can be cold run (disconnected from the internet) by starting it from a live Linux distro, and has been engineered so that, if the save files were to be stolen, it will not be possible to decrypt them with brute force attacks or otherwise: **The security of this software in maintaining the passphrase is greater than that adopted by Ledger or Trezor in keeping it secret from their inside the private key.**
 
 *Characteristics:*
@@ -11,25 +15,30 @@ This software, which can be entirely inspected by academics and cryptography exp
 
 ![Passphrase keeper](Screenshot.png?raw=true "Screenshot")
 
-## Are Trezor and Ledger safe?
+### Installation and Setup
+
+The installation process begins with the creation of a bootable Debian Server environment on a USB drive. A minimal, non-graphical installation of Debian Server is recommended to reduce the system's complexity and potential attack surface. Once the base operating system is installed and configured on the USB drive, the pre-compiled application package, built and published using Visual Studio, must be copied onto the drive. It is crucial to place this package into a dedicated and clearly identifiable directory within the file system of the bootable device.
+The final step requires obtaining root privileges to execute the installation script. Before running the script, it is necessary to navigate to the application's directory on the USB drive and explicitly grant execution permissions to the `install.sh` file using the appropriate system command. Only after these permissions are set should the `install.sh` script be launched with root authority. This script will automatically configure the system to start the Passphrase Keeper application in standalone mode upon boot, finalizing the preparation of the secure, self-contained device.
+
+### Are Trezor and Ledger safe?
 
 According to the most modern security concepts, the total security of a device is reduced to the largest flaw; in the case of the most well-known hardware wallets, it is not true, as advertised, that the private key never leaves the device, but leaves it at the moment in which it is written on a piece of paper, this makes events such as:
 The cleaning lady finds the passphrase (the 24 words) in a piece of paper hidden between the pages of a book, so this is the security level of this hardware device!
 This is the biggest flaw and this is therefore the maximum security level of your wallet.
 
-## Trezor and Ledger bug fix
+### Trezor and Ledger bug fix
 
 This project allows you to keep your passphrase in cold storage that cannot be hacked in any way:
 We took our idea from the concept of security introduced by Bitcoin technology: Security does not have to be intrinsic in the hardware or in making things inaccessible, but it must be in the algorithm! In contrast to secure backup systems at the hardware level (systems based on trust in the hardware), we have developed a secure save system at the algorithm level (trustless), whose code is open source and inspectable.
 What does this mean, if the passphrase saved with our software falls into the hands of hackers or malicious people, it cannot under any circumstances be deciphered, neither with attacks on the encryption algorithms, nor even with a brute force attack!
 
-## Cold passphrase storage
+### Cold passphrase storage
 We have created a stand alone version:
 A cold storage based on a pen drive bootable system (isolated from the internet), this device will be marketed to finance the project.
 We would like to point out that the security of the device is based on algorithms, and working cold is simply additional security:
 Any physical or internet theft does not allow the passphrase to be restored!
 
-## FAQ
+### FAQ
 
  *How the passphrase is saved?*
  - The passphrase is not saved: The seed you type when you start the device starts a series of recursive hashes (50 million), the fact that they are recursive operations means that parallelism is not very useful for brute force attacks: Recursion causes so that each hashing operation must wait for the previous result in order to make parallelism useless in brute force attacks. This operation is started simultaneously on eight threads, with a seed derived from the typed seed that is different for each thread, at the end the result of each thread is combined to give a unique result, this result is the 32 byte password that will allow you to encrypt and regenerate passphrase on restore.
